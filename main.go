@@ -29,6 +29,7 @@ func init() {
 func main() {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
+		ProxyHeader:           "X-Forwarded-For",
 	})
 
 	// logger
