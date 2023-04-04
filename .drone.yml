@@ -1,0 +1,20 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: publish
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: DOCKER_USERNAME
+      password:
+        from_secret: DOCKER_PASSWORD
+      repo: harbor.zeroy.cc/private/chatgpt-proxy
+      dockerfile: Dockerfile
+      context: .
+      registry: harbor.zeroy.cc
+      tags: latest
+      volumes:
+        - name: temp
+          path: /temp
