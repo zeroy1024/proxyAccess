@@ -10,7 +10,7 @@ steps:
         from_secret: DOCKER_USERNAME
       password:
         from_secret: DOCKER_PASSWORD
-      repo: harbor.zeroy.cc/private/chatgpt-proxy
+      repo: harbor.zeroy.cc/private/proxy-access
       dockerfile: Dockerfile
       context: .
       registry: harbor.zeroy.cc
