@@ -41,11 +41,10 @@ func main() {
 		if err != nil {
 			return c.SendStatus(http.StatusInternalServerError)
 		}
-		fullURL := fmt.Sprintf("%s%s%s", destURL.String(), c.Path(), destURL.RawQuery)
 		data := c.Request().Body()
 
 		// 创建代理请求
-		request, _ := http.NewRequest(c.Method(), fullURL, bytes.NewReader(data))
+		request, _ := http.NewRequest(c.Method(), destURL.String(), bytes.NewReader(data))
 
 		// 复制请求头
 		for k, v := range c.GetReqHeaders() {
@@ -53,7 +52,7 @@ func main() {
 		}
 		request.Header.Set("Host", destURL.Host)
 		request.Header.Set("Origin", destURL.Scheme+"://"+destURL.Host)
-		request.Header.Set("Referer", fullURL)
+		request.Header.Set("Referer", destURL.String())
 
 		// 删除额外头 Dest-Addr
 		request.Header.Del("Dest-Addr")
