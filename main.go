@@ -41,13 +41,11 @@ func main() {
 		if err != nil {
 			return c.SendStatus(http.StatusInternalServerError)
 		}
-		fullURL := fmt.Sprintf("%s%s", destURL.String(), c.Path())
-		params := c.Request().URI().QueryArgs().String()
+		fullURL := fmt.Sprintf("%s%s%s", destURL.String(), c.Path(), destURL.RawQuery)
 		data := c.Request().Body()
 
 		// 创建代理请求
 		request, _ := http.NewRequest(c.Method(), fullURL, bytes.NewReader(data))
-		request.URL.RawQuery = params
 
 		// 复制请求头
 		for k, v := range c.GetReqHeaders() {
